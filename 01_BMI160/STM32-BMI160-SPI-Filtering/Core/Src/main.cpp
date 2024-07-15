@@ -35,6 +35,7 @@
 
 #include "filtering/kalman-filtering/kalman_filtering.h"
 #include "filtering/calibration-filtering/calibration.h"
+#include "filtering/complementary-filter/complementary.h"
 
 
 /* USER CODE END Includes */
@@ -125,7 +126,8 @@ int main(void)
   /* USER CODE BEGIN 3 */
 
 //  filtering_main();
-  calibration_main();
+//  calibration_main();
+  complementary_main();
 
   printf("Program end!\n");
   while(1);

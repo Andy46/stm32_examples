@@ -68,7 +68,7 @@ int8_t sensor_bmi160_config(void)
 
     /* Select the Output data rate, range of accelerometer sensor */
     bmi160dev.accel_cfg.odr   = BMI160_ACCEL_ODR_1600HZ;
-    bmi160dev.accel_cfg.range = BMI160_ACCEL_RANGE_4G;
+    bmi160dev.accel_cfg.range = BMI160_ACCEL_RANGE_2G;
     bmi160dev.accel_cfg.bw    = BMI160_ACCEL_BW_NORMAL_AVG4;
 
     /* Select the power mode of accelerometer sensor */
