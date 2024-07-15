@@ -111,7 +111,7 @@ void filtering_main(void)
 		  if (gyroYangle < -180 || gyroYangle > 180)
 		    gyroYangle = kalAngleY;
 
-		  printf("%f\t%f\t%f\t%f\t\t%f\t%f\t%f\t%f\t", roll, gyroXangle, compAngleX, kalAngleX, pitch, gyroYangle, compAngleY, kalAngleY);
+		  printf("%f\t%f\t%f\t%f\t\t%f\t%f\t%f\t%f\t\n", roll, gyroXangle, compAngleX, kalAngleX, pitch, gyroYangle, compAngleY, kalAngleY);
 
 
 	}

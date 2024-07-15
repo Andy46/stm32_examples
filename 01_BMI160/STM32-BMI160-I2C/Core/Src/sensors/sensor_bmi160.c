@@ -112,12 +112,12 @@ int8_t sensor_bmi160_read_gyro(struct bmi160_sensor_data* gyro_data)
 
 int8_t sensor_bmi160_read_all(struct bmi160_sensor_data* accel_data, struct bmi160_sensor_data* gyro_data)
 {
-	if (accel_data == NULL)
+	if (accel_data == NULL || gyro_data == NULL)
 	{
 		return SENSOR_ERROR;
 	}
 
-    bmi160_get_sensor_data((BMI160_ACCEL_SEL | BMI160_GYRO_SEL |BMI160_TIME_SEL), accel_data, gyro_data, &bmi160dev);
+    bmi160_get_sensor_data((BMI160_ACCEL_SEL | BMI160_GYRO_SEL | BMI160_TIME_SEL), accel_data, gyro_data, &bmi160dev);
     return SENSOR_OK;
 }
 

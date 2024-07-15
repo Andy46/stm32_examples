@@ -21,14 +21,14 @@ extern "C"
 static struct bmi160_dev bmi160dev;
 
 #define BMI160_CS_PORT GPIOB
-#define BMI160_CS_PIN  GPIO_PIN_0
+#define BMI160_CS_PIN  GPIO_PIN_1
 
 /* SPI callback functions */
 int8_t bmi160spi_read_cb (uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len);
 int8_t bmi160spi_write_cb (uint8_t dev_addr, uint8_t reg_addr, uint8_t *read_data, uint16_t len);
 void bmi160spi_delay_ms_cb (uint32_t period);
 
-//#undef DEBUG
+#undef DEBUG
 
 int8_t sensor_bmi160_init(void)
 {

@@ -34,6 +34,7 @@
 #include "sensors/sensor_bmi160.h"
 
 #include "filtering/kalman_filtering.h"
+#include "filtering/calibration.h"
 
 /* USER CODE END Includes */
 
@@ -121,7 +122,8 @@ int main(void)
 
   /* USER CODE BEGIN 3 */
 
-  filtering_main();
+//  filtering_main();
+  calibration_main();
 
   printf("Program end!\n");
   while(1);

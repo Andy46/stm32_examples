@@ -37,7 +37,7 @@ For these projects the [STM32 Cube IDE](https://www.st.com/en/development-tools/
 | 8          | GND                | GND       | GND                |
 | 9          | SCL                | A5        | SCK                |
 | 10         | SDA                | A6        | MOSI               |
-| 11         | CS                 | B0        | GPIO B0            |
+| 11         | CS                 | B1        | GPIO B1            |
 | 12         | SA0                | A7        | MISO               |
 
 ### Diagrams
