@@ -6,10 +6,11 @@
  */
 
 #include "main.h"
-#include "../sensors/sensors_gy91.h"
+#include "../../sensors/sensor_bmi160.h"
+#include <bmi160.h>
+#include "gpio.h"
 
 #include <stdio.h>
-#include <math.h>
 
 #include "Kalman.h" // Source: https://github.com/TKJElectronics/KalmanFilter
 
@@ -26,6 +27,9 @@ double compAngleX, compAngleY; // Calculated angle using a complementary filter
 double kalAngleX, kalAngleY; // Calculated angle using a Kalman filter
 
 uint32_t timer;
+
+struct bmi160_sensor_data bmi160_accel;
+struct bmi160_sensor_data bmi160_gyro;
 
 #define PI 3.1415926535897932384626433832795
 #define HALF_PI 1.5707963267948966192313216916398
@@ -54,17 +58,12 @@ float convertRawGyro(int16_t gRaw) {
 
 void filtering_main(void)
 {
-	int16_t accel_data[3];
-	int16_t mag_data[3];
-	int16_t gyro_data[3];
-    uint32_t sensortime;
-    uint32_t prevtime;
 
-	sensor_gy91_read_all(accel_data, mag_data, gyro_data);
-	prevtime = HAL_GetTick();
+	sensor_bmi160_read_all(&bmi160_accel, &bmi160_gyro);
 
-	double roll  = atan2(accel_data[1], accel_data[2]) * RAD_TO_DEG;
-	double pitch = atan(-accel_data[0] / sqrt(accel_data[1] * accel_data[1] + accel_data[2] * accel_data[2])) * RAD_TO_DEG;
+	double roll  = atan2(bmi160_accel.y, bmi160_accel.z) * RAD_TO_DEG;
+	double pitch = atan(-bmi160_accel.x / sqrt(bmi160_accel.y * bmi160_accel.y + bmi160_accel.z * bmi160_accel.z)) * RAD_TO_DEG;
+	timer = bmi160_accel.sensortime;
 
 	kalmanX.setAngle(roll); // Set starting angle
 	kalmanY.setAngle(pitch);
@@ -73,16 +72,14 @@ void filtering_main(void)
 	compAngleX = roll;
 	compAngleY = pitch;
 
-
 	while(1)
 	{
-		sensor_gy91_read_all(accel_data, mag_data, gyro_data);
-		sensortime = HAL_GetTick();
+		sensor_bmi160_read_all(&bmi160_accel, &bmi160_gyro);
+	    double dt = (double)(bmi160_accel.sensortime - timer) / 1000000; // Calculate delta time
+		timer = bmi160_accel.sensortime;
 
-	    double dt = (double)(sensortime - prevtime) / 1000000; // Calculate delta time
-
-		double roll  = atan2(accel_data[1], accel_data[2]) * RAD_TO_DEG;
-		double pitch = atan(-accel_data[0] / sqrt(accel_data[1] * accel_data[1] + accel_data[2] * accel_data[2])) * RAD_TO_DEG;
+		double roll  = atan2(bmi160_accel.y, bmi160_accel.z) * RAD_TO_DEG;
+		double pitch = atan(-bmi160_accel.x / sqrt(bmi160_accel.y * bmi160_accel.y + bmi160_accel.z * bmi160_accel.z)) * RAD_TO_DEG;
 
 		double gyroXrate = gyroX / 131.0; // Convert to deg/s
 		double gyroYrate = gyroY / 131.0; // Convert to deg/s

@@ -33,8 +33,9 @@
 
 #include "sensors/sensor_bmi160.h"
 
-#include "filtering/kalman_filtering.h"
-#include "filtering/calibration.h"
+#include "filtering/kalman-filtering/kalman_filtering.h"
+#include "filtering/calibration-filtering/calibration.h"
+
 
 /* USER CODE END Includes */
 
