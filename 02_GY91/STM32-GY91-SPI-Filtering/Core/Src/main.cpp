@@ -19,7 +19,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "dma.h"
-#include "i2c.h"
 #include "spi.h"
 #include "usart.h"
 #include "gpio.h"
@@ -29,9 +28,9 @@
 
 #include <stdio.h>
 
-#include <bmi160_defs.h>
+#include <MPU9250.h>
 
-#include "sensors/sensor_bmi160.h"
+#include "sensors/sensors_gy91.h"
 
 #include "filtering/kalman_filtering.h"
 #include "filtering/calibration.h"
@@ -62,6 +61,7 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -99,32 +99,28 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_DMA_Init();
   MX_GPIO_Init();
-  MX_I2C1_Init();
-  MX_I2C2_Init();
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   printf("STM32 Initialized!\n");
 
-  int status = sensor_bmi160_init();
+  int status = sensor_gy91_init();
   if (status != SENSOR_OK){
 	  printf ("Error initializing!\n");
   }
 
   /* USER CODE END 2 */
-
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
   GPIO_PinState led_state = GPIO_PIN_RESET;
   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, led_state);
 
-  /* USER CODE END WHILE */
+    /* USER CODE END WHILE */
 
-  /* USER CODE BEGIN 3 */
+    /* USER CODE BEGIN 3 */
 
-//  filtering_main();
-  calibration_main();
+    filtering_main();
+//  calibration_main();
 
   printf("Program end!\n");
   while(1);

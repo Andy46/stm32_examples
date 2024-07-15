@@ -9,6 +9,11 @@
 #include "sensors_gy91.h"
 
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 int8_t sensor_gy91_init(void)
 {
 	int8_t status = SENSOR_OK;
@@ -20,8 +25,8 @@ int8_t sensor_gy91_init(void)
 	}
 
 	// Configuration
-	MPU9250_SetSampleRateDivider(LP_ACCEL_ODR_250HZ);
-	MPU9250_SetDLPFBandwidth(DLPF_BANDWIDTH_20HZ);
+	MPU9250_SetSampleRateDivider(LP_ACCEL_ODR_500HZ);
+	MPU9250_SetDLPFBandwidth(DLPF_BANDWIDTH_92HZ);
 	MPU9250_SetGyroRange(GYRO_RANGE_2000DPS);
 	MPU9250_SetAccelRange(ACCEL_RANGE_4G);
 
@@ -39,3 +44,7 @@ int8_t sensor_gy91_read_all(int16_t* accel_data, int16_t* mag_data, int16_t* gyr
 
 	return SENSOR_OK;
 }
+
+#ifdef __cplusplus
+}
+#endif
