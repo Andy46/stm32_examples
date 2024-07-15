@@ -1,3 +1,0 @@
-[submodule "02_GY91/STM32-GY91-SPI/Core/libs/MPU9250"]
-	path = 02_GY91/STM32-GY91-SPI/Core/libs/MPU9250
-	url = https://github.com/desertkun/MPU9250.git
