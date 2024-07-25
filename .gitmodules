@@ -1,0 +1,3 @@
+[submodule "05_PMW3360/STM32-PMW3360-SPI/Drivers/PMW3360"]
+	path = 05_PMW3360/STM32-PMW3360-SPI/Drivers/PMW3360
+	url = https://github.com/SunjunKim/PMW3360.git
